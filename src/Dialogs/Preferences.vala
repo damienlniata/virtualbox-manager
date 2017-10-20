@@ -30,7 +30,7 @@ namespace VirtualboxManager.Dialogs {
         VirtualboxManager.Settings settings;
 
         construct {
-            settings = PlaVirtualboxManageryMyMusic.Settings.get_default ();
+            settings = VirtualboxManager.Settings.get_default ();
         }
 
         public Preferences (Gtk.Window parent) {

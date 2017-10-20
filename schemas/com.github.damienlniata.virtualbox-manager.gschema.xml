@@ -1,0 +1,24 @@
+<schemalist>
+	<schema path="/com/github/damienlniata/virtualbox-manager/" id="com.github.damienlniata.virtualbox-manager" gettext-domain="com.github.damienlniata.virtualbox-manager">
+		<key name="window-width" type="i">
+			<default>1024</default>
+			<summary>The saved width of the window.</summary>
+			<description>The saved width of the window.</description>
+		</key>
+		<key name="window-height" type="i">
+			<default>720</default>
+			<summary>The saved height of the window.</summary>
+			<description>The saved height of the window.</description>
+		</key>
+		<key name="window-maximized" type="b">
+			<default>false</default>
+			<summary>Maximized window.</summary>
+			<description>Maximized window.</description>
+		</key>
+		<key name="show-running-vms-badge" type="b">
+			<default>false</default>
+			<summary>Show badge of running vms</summary>
+			<description>Show badge of running vms</description>
+		</key>
+	</schema>
+</schemalist>
