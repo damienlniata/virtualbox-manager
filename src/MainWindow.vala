@@ -95,19 +95,19 @@ namespace VirtualboxManager {
             app_menu.popup = settings_menu;
             headerbar.pack_end (app_menu);
 
-            // SEARCH ENTRY
-            search_entry = new Gtk.SearchEntry ();
-            search_entry.placeholder_text = _("Search vms");
-            search_entry.margin_right = 5;
-            search_entry.search_changed.connect (() => {
-            });
-            headerbar.pack_end (search_entry);
-
-            // SPINNER
-            spinner = new Gtk.Spinner ();
-            headerbar.pack_end (spinner);
-
             if (VirtualboxManager.Utils.VboxCommands.getVersion() != null) {
+                // SEARCH ENTRY
+                search_entry = new Gtk.SearchEntry ();
+                search_entry.placeholder_text = _("Search vms");
+                search_entry.margin_right = 5;
+                search_entry.search_changed.connect (() => {
+                });
+                headerbar.pack_end (search_entry);
+
+                // SPINNER
+                spinner = new Gtk.Spinner ();
+                headerbar.pack_end (spinner);
+
                 all_view = new VirtualboxManager.Views.AllVmsView();
                 content.add_named (all_view, "all");  
                 this.add(content);
