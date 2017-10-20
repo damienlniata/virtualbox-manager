@@ -26,7 +26,7 @@
  */
 
 namespace VirtualboxManager {
-    public class VirtualboxManagerApp : Gtk.Application {
+    public class VirtualboxManagerApp : Granite.Application {
 
         VirtualboxManager.Settings settings;
 
@@ -43,6 +43,7 @@ namespace VirtualboxManager {
         construct {
             this.flags |= GLib.ApplicationFlags.HANDLES_OPEN;
             this.application_id = "com.github.damienlniata.virtualbox-manager";
+            this.program_name = "com.github.damienlniata.virtualbox-manager";
             settings = VirtualboxManager.Settings.get_default ();
          }
 
@@ -61,6 +62,15 @@ namespace VirtualboxManager {
 }
 
 public static int main (string [] args) {
+    set_log_level_by_args (ref args);
+
     var app = VirtualboxManager.VirtualboxManagerApp.instance;
     return app.run (args);
+}
+
+void set_log_level_by_args (ref unowned string[] args) {
+    foreach (var arg in args) {
+        if (arg == "--debug")
+            Granite.Services.Logger.DisplayLevel = Granite.Services.LogLevel.DEBUG;
+    }
 }

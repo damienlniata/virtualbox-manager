@@ -35,7 +35,9 @@ namespace VirtualboxManager {
         Gtk.SearchEntry search_entry;
         
         Gtk.Stack content;
-
+        VirtualboxManager.Views.NoVboxView novbox_view;
+        VirtualboxManager.Views.AllVmsView all_view;
+        
         Notification desktop_notification;
 
         bool send_desktop_notification = true;
@@ -105,7 +107,15 @@ namespace VirtualboxManager {
             spinner = new Gtk.Spinner ();
             headerbar.pack_end (spinner);
 
-            this.add (content);
+            if (VirtualboxManager.Utils.VboxCommands.getVersion() != null) {
+                all_view = new VirtualboxManager.Views.AllVmsView();
+                content.add_named (all_view, "all");  
+                this.add(content);
+            }
+            else {
+                novbox_view = new VirtualboxManager.Views.NoVboxView();
+                this.add (novbox_view);
+            }
 
             this.show_all ();
         }

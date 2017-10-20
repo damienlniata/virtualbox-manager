@@ -3,12 +3,16 @@ configure_file (${CMAKE_SOURCE_DIR}/Config.vala.cmake ${CONFIG_FILE})
 
 vala_precompile (VALA_C ${CMAKE_PROJECT_NAME}
     Dialogs/Preferences.vala
+    Views/NoVboxView.vala
+    Views/AllVmsView.vala
+    Utils/VboxCommands.vala
     Settings.vala
     MainWindow.vala
     Application.vala
 PACKAGES
     granite
     gtk+-3.0
+    glib-2.0
 OPTIONS
     --vapidir=${CMAKE_SOURCE_DIR}/vapi
     --target-glib=2.32
