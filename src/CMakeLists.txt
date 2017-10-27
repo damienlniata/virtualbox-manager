@@ -2,10 +2,12 @@ set (CONFIG_FILE ${CMAKE_CURRENT_BINARY_DIR}/Config.vala)
 configure_file (${CMAKE_SOURCE_DIR}/Config.vala.cmake ${CONFIG_FILE})
 
 vala_precompile (VALA_C ${CMAKE_PROJECT_NAME}
+    Classes/VirtualMachine.vala
     Dialogs/Preferences.vala
     Views/NoVboxView.vala
     Views/AllVmsView.vala
     Utils/VboxCommands.vala
+    Widgets/VirtualMachineRow.vala
     Settings.vala
     MainWindow.vala
     Application.vala

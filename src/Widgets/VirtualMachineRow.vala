@@ -24,52 +24,33 @@
  *
  * Authored by: Damien Leroy <damien.leroy@outlook.fr>
  */
+namespace VirtualboxManager.Widgets { 
+    public class VirtualMachineRow : Gtk.ListBoxRow {
+        private VirtualboxManager.Classes.VirtualMachine vm {get; private set;}
 
-namespace VirtualboxManager.Views {
-    public class AllVmsView : Gtk.Box {
-        private Gtk.ListBox vmlist;
+        private Gtk.Box content;
+        private Gtk.Label label_vm_uuid;
 
         construct {
+
+        }
+        
+        public VirtualMachineRow(VirtualboxManager.Classes.VirtualMachine vm) {
+            this.vm = vm;
+            build_ui();
         }
 
-        public AllVmsView () {
-            Object(orientation: Gtk.Orientation.VERTICAL, spacing: 0);
-            this.vexpand = true;
-            this.hexpand = true;
+        public void build_ui () {
+            content = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+            content.margin = 6;
+            content.spacing = 6;
+            content.margin_top = content.margin_bottom = 6;
+            content.halign = Gtk.Align.FILL;
+        
+            label_vm_uuid = new Gtk.Label(vm.uuid);
+            content.pack_start(label_vm_uuid, true, true, 0);
 
-            build_ui ();
-        }
-
-        private void build_ui () {
-          
-            vmlist = new Gtk.ListBox();
-            vmlist.vexpand = true;
-            vmlist.hexpand = true;
-
-            var vms = VirtualboxManager.Utils.VboxCommands.getRunningVms();
-            foreach (var item in vms) {
-                var item_uuid = item.uuid;
-                debug(@"Adding vm row : {$item_uuid}");
-                VirtualboxManager.Widgets.VirtualMachineRow row = new VirtualboxManager.Widgets.VirtualMachineRow(item);
-                vmlist.add(row);
-            }
-            vmlist.show_all();
-            
-            var vm_scroll = new Gtk.ScrolledWindow (null, null);
-            vm_scroll.expand = true;
-            vm_scroll.add (vmlist);
-
-            this.pack_start(vm_scroll, true, true, 0);
-         }
+            this.halign = Gtk.Align.FILL;
+        }            
     }
 }
-
-var builder = new Builder();
-
-    builder.add_from_file("puncher.ui");
-    builder.connect_signals(null);
-
-    var window = builder.get_object("window1") as Window;
-
-    window.show_all();
-Gtk.main();

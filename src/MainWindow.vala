@@ -109,8 +109,9 @@ namespace VirtualboxManager {
                 headerbar.pack_end (spinner);
 
                 all_view = new VirtualboxManager.Views.AllVmsView();
-                content.add_named (all_view, "all");  
-                this.add(content);
+                //content.add_named (all_view, "all");  
+                //this.add(content);
+                this.add(all_view);
             }
             else {
                 novbox_view = new VirtualboxManager.Views.NoVboxView();

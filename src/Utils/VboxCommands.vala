@@ -30,6 +30,11 @@
          private const string VBOXMANAGE = "vboxmanage";
          private const string VBOXMANAGE_OPTION_VERSION = "--version";
 
+         private const string VBOXMANAGE_COMMAND_LIST = "list";
+         private const string VBOXMANAGE_COMMAND_LIST_RUNNINGVMS = "runningvms";
+         
+         
+
          public static string? getVersion() {
             string stdout;
             string stderr;
@@ -45,5 +50,32 @@
                 return null;
             }
          }
+        
+        public static List<VirtualboxManager.Classes.VirtualMachine> getRunningVms() {
+            string stdout;
+            string stderr;
+            int status;
+            List<VirtualboxManager.Classes.VirtualMachine> retour = new List<VirtualboxManager.Classes.VirtualMachine>();
+
+            try {
+                info(@"Runnning command : $VBOXMANAGE $VBOXMANAGE_COMMAND_LIST $VBOXMANAGE_COMMAND_LIST_RUNNINGVMS");
+                Process.spawn_command_line_sync(@"$VBOXMANAGE $VBOXMANAGE_COMMAND_LIST $VBOXMANAGE_COMMAND_LIST_RUNNINGVMS", out stdout, out stderr, out status);
+                debug(@"Commmand stdout : $stdout");
+                GLib.Regex regex = /{(.*)}/;
+                GLib.MatchInfo mInfo;
+
+                for (regex.match (stdout, 0, out mInfo) ; mInfo.matches () ; mInfo.next ()) {
+                    string vm_uuid = mInfo.fetch(1);
+                    info(@"Found running vm : $vm_uuid");
+                    retour.append(new VirtualboxManager.Classes.VirtualMachine(vm_uuid));
+                }
+        
+            }
+            catch (Error e) {
+                debug(e.message);
+            }
+
+            return retour;
+        }
      }
  }
