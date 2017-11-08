@@ -15,6 +15,7 @@ PACKAGES
     granite
     gtk+-3.0
     glib-2.0
+    gmodule-2.0
 OPTIONS
     --vapidir=${CMAKE_SOURCE_DIR}/vapi
     --target-glib=2.32

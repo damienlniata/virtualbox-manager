@@ -36,6 +36,7 @@ namespace VirtualboxManager.Widgets {
         }
         
         public VirtualMachineRow(VirtualboxManager.Classes.VirtualMachine vm) {
+            Object();
             this.vm = vm;
             build_ui();
         }

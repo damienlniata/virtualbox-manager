@@ -41,20 +41,20 @@ namespace VirtualboxManager.Views {
         }
 
         private void build_ui () {
-          
+                    
             vmlist = new Gtk.ListBox();
             vmlist.vexpand = true;
             vmlist.hexpand = true;
 
-            var vms = VirtualboxManager.Utils.VboxCommands.getRunningVms();
+            var vms = VirtualboxManager.Utils.VboxCommands.getAllVms();
             foreach (var item in vms) {
                 var item_uuid = item.uuid;
                 debug(@"Adding vm row : {$item_uuid}");
-                VirtualboxManager.Widgets.VirtualMachineRow row = new VirtualboxManager.Widgets.VirtualMachineRow(item);
-                vmlist.add(row);
+                //VirtualboxManager.Widgets.VirtualMachineRow row = new VirtualboxManager.Widgets.VirtualMachineRow(item);
+                //vmlist.add(row);
+                vmlist.add(new Gtk.Label(item_uuid));
             }
-            vmlist.show_all();
-            
+
             var vm_scroll = new Gtk.ScrolledWindow (null, null);
             vm_scroll.expand = true;
             vm_scroll.add (vmlist);
@@ -63,13 +63,3 @@ namespace VirtualboxManager.Views {
          }
     }
 }
-
-var builder = new Builder();
-
-    builder.add_from_file("puncher.ui");
-    builder.connect_signals(null);
-
-    var window = builder.get_object("window1") as Window;
-
-    window.show_all();
-Gtk.main();
