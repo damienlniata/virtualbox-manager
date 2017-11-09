@@ -6,6 +6,7 @@ vala_precompile (VALA_C ${CMAKE_PROJECT_NAME}
     Dialogs/Preferences.vala
     Views/NoVboxView.vala
     Views/AllVmsView.vala
+    Views/RunningVmsView.vala
     Utils/VboxCommands.vala
     Widgets/VirtualMachineRow.vala
     Settings.vala

@@ -25,31 +25,32 @@
  * Authored by: Damien Leroy <damien.leroy@outlook.fr>
  */
 namespace VirtualboxManager.Widgets { 
-    public class VirtualMachineRow : Gtk.ListBoxRow {
+    public class VirtualMachineRow : Gtk.Box {
         private VirtualboxManager.Classes.VirtualMachine vm {get; private set;}
 
-        private Gtk.Box content;
         private Gtk.Label label_vm_uuid;
-
+        private Gtk.Label label_vm_name;
+        
         construct {
 
         }
         
         public VirtualMachineRow(VirtualboxManager.Classes.VirtualMachine vm) {
-            Object();
+            Object(orientation: Gtk.Orientation.HORIZONTAL, spacing: 5);
+            this.margin = 5;
+            this.margin_top = this.margin_bottom = 5;
+            this.halign = Gtk.Align.FILL;
+
             this.vm = vm;
             build_ui();
         }
 
         public void build_ui () {
-            content = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-            content.margin = 6;
-            content.spacing = 6;
-            content.margin_top = content.margin_bottom = 6;
-            content.halign = Gtk.Align.FILL;
-        
             label_vm_uuid = new Gtk.Label(vm.uuid);
-            content.pack_start(label_vm_uuid, true, true, 0);
+            this.pack_start(label_vm_uuid, true, true, 0);
+
+            label_vm_name = new Gtk.Label(vm.name);
+            this.add(label_vm_name);
 
             this.halign = Gtk.Align.FILL;
         }            

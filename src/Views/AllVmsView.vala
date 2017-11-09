@@ -50,9 +50,8 @@ namespace VirtualboxManager.Views {
             foreach (var item in vms) {
                 var item_uuid = item.uuid;
                 debug(@"Adding vm row : {$item_uuid}");
-                //VirtualboxManager.Widgets.VirtualMachineRow row = new VirtualboxManager.Widgets.VirtualMachineRow(item);
-                //vmlist.add(row);
-                vmlist.add(new Gtk.Label(item_uuid));
+                VirtualboxManager.Widgets.VirtualMachineRow row = new VirtualboxManager.Widgets.VirtualMachineRow(item);
+                vmlist.add(row);
             }
 
             var vm_scroll = new Gtk.ScrolledWindow (null, null);

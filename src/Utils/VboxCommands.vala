@@ -33,6 +33,8 @@
          private const string VBOXMANAGE_COMMAND_LIST = "list";
          private const string VBOXMANAGE_COMMAND_LIST_RUNNINGVMS = "runningvms";
          private const string VBOXMANAGE_COMMAND_LIST_ALLVMS = "vms";
+
+        private const string VBOXMANAGE_COMMAND_VMINFO = "showvminfo";
          
         public static string? getVersion() {
             string stdout;
@@ -102,6 +104,30 @@
             }
 
             return retour;
+        }
+
+        public static string? getVmInfos(string uuid) {
+            string stdout;
+            string stderr;
+            int status;
+
+            try {
+                info(@"Runnning command : $VBOXMANAGE $VBOXMANAGE_COMMAND_VMINFO $uuid");
+                Process.spawn_command_line_sync(@"$VBOXMANAGE $VBOXMANAGE_COMMAND_VMINFO $uuid", out stdout, out stderr, out status);
+                debug(@"Commmand stdout : $stdout");
+            }
+            catch (Error e) {
+                debug(e.message);
+                return null;
+            }
+
+            return stdout;
+
+        }
+
+        public static string getVmName(string vminfos) {
+                GLib.Regex regex = /{(.*)}/;
+            return "nom"; 
         }
  }
 

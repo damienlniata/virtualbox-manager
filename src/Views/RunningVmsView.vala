@@ -25,22 +25,40 @@
  * Authored by: Damien Leroy <damien.leroy@outlook.fr>
  */
 
- namespace VirtualboxManager.Classes {
-     public class VirtualMachine {
-         private string vminfos;
+namespace VirtualboxManager.Views {
+    public class RunningVmsView : Gtk.Box {
+        private Gtk.ListBox vmlist;
 
-         public string uuid {get; set;}
-         public string name {get; set;}
-
-        public VirtualMachine(string uuid) {
-             this.uuid = uuid;
-             vminfos = VirtualboxManager.Utils.VboxCommands.getVmInfos(uuid);
-
-             this.name = VirtualboxManager.Utils.VboxCommands.getVmName(vminfos);
+        construct {
         }
 
-        //  public override string to_string() {
-        //      return @"$name {$uuid}";
-        //  }
-     }
- }
+        public RunningVmsView () {
+            Object(orientation: Gtk.Orientation.VERTICAL, spacing: 0);
+            this.vexpand = true;
+            this.hexpand = true;
+
+            build_ui ();
+        }
+
+        private void build_ui () {
+                    
+            vmlist = new Gtk.ListBox();
+            vmlist.vexpand = true;
+            vmlist.hexpand = true;
+
+            var vms = VirtualboxManager.Utils.VboxCommands.getRunningVms();
+            foreach (var item in vms) {
+                var item_uuid = item.uuid;
+                debug(@"Adding vm row : {$item_uuid}");
+                VirtualboxManager.Widgets.VirtualMachineRow row = new VirtualboxManager.Widgets.VirtualMachineRow(item);
+                vmlist.add(row);
+            }
+
+            var vm_scroll = new Gtk.ScrolledWindow (null, null);
+            vm_scroll.expand = true;
+            vm_scroll.add (vmlist);
+
+            this.pack_start(vm_scroll, true, true, 0);
+         }
+    }
+}

@@ -34,9 +34,11 @@ namespace VirtualboxManager {
         Gtk.Spinner spinner;
         Gtk.SearchEntry search_entry;
         
+        Gtk.StackSwitcher switcher;
         Gtk.Stack content;
         VirtualboxManager.Views.NoVboxView novbox_view;
         VirtualboxManager.Views.AllVmsView all_view;
+        VirtualboxManager.Views.RunningVmsView running_view;
         
         Notification desktop_notification;
 
@@ -96,6 +98,11 @@ namespace VirtualboxManager {
             headerbar.pack_end (app_menu);
 
             if (VirtualboxManager.Utils.VboxCommands.getVersion() != null) {
+                // STACK SWTCIHER
+                switcher = new Gtk.StackSwitcher();
+                switcher.set_stack(content);
+                headerbar.pack_start(switcher);
+
                 // SEARCH ENTRY
                 search_entry = new Gtk.SearchEntry ();
                 search_entry.placeholder_text = _("Search vms");
@@ -109,9 +116,12 @@ namespace VirtualboxManager {
                 headerbar.pack_end (spinner);
 
                 all_view = new VirtualboxManager.Views.AllVmsView();
-                //content.add_named (all_view, "all");  
-                //this.add(content);
-                this.add(all_view);
+                content.add_titled (all_view, "all", _("All"));  
+
+                running_view = new VirtualboxManager.Views.RunningVmsView();
+                content.add_titled (running_view, "running", _("Running"));  
+
+                this.add(content);
             }
             else {
                 novbox_view = new VirtualboxManager.Views.NoVboxView();
